@@ -54,3 +54,12 @@ The **Restaurant Reservation System** is a web application that allows customers
 - **Customer**: Can create reservations, manage personal profiles, and receive notifications.
 - **Admin**: Manages reservation data, modifies availability, and sends notifications to customers.
 
+
+## Layout 
+
+![Layout 1](images/img1.jpg)
+
+![Layout 2](images/img2.jpg)
+
+![Layout 3](images/img3.jpg)
+
