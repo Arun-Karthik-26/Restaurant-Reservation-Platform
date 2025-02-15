@@ -8,6 +8,7 @@ import ReservePage from "./pages/ReservePage";
 import ProfilePage from "./pages/ProfilePage";
 import "./App.css"
 import ContactPage from "./pages/ContactPage";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/reserve" element={<ReservePage />} />
+        <Route path="/register" element={<RegisterPage/>} />
         <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>

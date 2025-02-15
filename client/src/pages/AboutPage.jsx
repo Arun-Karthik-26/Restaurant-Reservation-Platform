@@ -1,4 +1,5 @@
 import { FaUtensils, FaConciergeBell, FaCalendarCheck } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 export default function AboutPage() {
@@ -66,7 +67,7 @@ export default function AboutPage() {
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.3 }}
                 >
-                    Find your Perfect Spot
+                    <Link to="/login" className="hover:text-orange-300">Find your Perfect Spot</Link>
                 </motion.button>
             </div>
         </div>
