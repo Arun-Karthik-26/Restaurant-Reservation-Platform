@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
     return (
@@ -34,7 +35,7 @@ export default function HomePage() {
                     whileTap={{ scale: 0.9 }}
                     transition={{ duration: 0.2 }}
                 >
-                    Reserve a Table
+                <Link to="/login" className="hover:text-orange-300">Reserve Table</Link>
                 </motion.button>
             </motion.div>
         </div>
