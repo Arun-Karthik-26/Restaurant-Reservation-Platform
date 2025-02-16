@@ -2,6 +2,7 @@ import mysql from "mysql2";
 import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables
+console.log("DB Config: on mod", process.env.DB_HOST, process.env.DB_USER, process.env.DB_PASSWORD, process.env.DB_NAME);
 
 
 const connection = mysql.createConnection({
