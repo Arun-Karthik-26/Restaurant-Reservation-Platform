@@ -1,12 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useAuth } from "../components/authcontext";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    setIsLoggedIn(!isLoggedIn);
+  const handleLogout = () => {
+    logout(); // ✅ Calls logout function from AuthContext
+    navigate("/login"); // ✅ Redirects to login page
   };
 
   return (
@@ -16,7 +18,7 @@ const Navbar = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Left Side: Logo & Company Name */}
+      {/* Logo */}
       <motion.div 
         className="flex items-center space-x-2"
         whileHover={{ scale: 1.1 }}
@@ -28,39 +30,57 @@ const Navbar = () => {
         </span>
       </motion.div>
 
-      {/* Right Side: Navigation */}
+      {/* Navigation Links */}
       <ul className="flex space-x-6 ml-auto text-xl">
-        {[
-          { name: "Home", path: "/" }, 
-          ...(isLoggedIn 
-            ? [{ name: "Reserve", path: "/reserve" }, { name: "Profile", path: "/profile" }] 
-            : [{ name: "About", path: "/about" }, { name: "Contact", path: "/contact" }]), 
-          { name: "Menu", path: "/menu" }
-        ].map(({ name, path }) => (
-          <motion.li 
-            key={name} 
-            className="relative group"
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Link to={path} className="hover:text-orange-300">{name}</Link>
-            {/* Animated Underline */}
-            <motion.div 
-              className="absolute left-0 top-7 bottom-0 h-[2.5px] bg-orange-500 w-0 group-hover:w-full transition-all duration-300"
-            ></motion.div>
-          </motion.li>
-        ))}
+        <motion.li whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+          <Link to="/" className="hover:text-orange-300">Home</Link>
+        </motion.li>
+
+        {isLoggedIn ? (
+          <>
+            <motion.li whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+              <Link to="/reserve" className="hover:text-orange-300">Reserve</Link>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+              <Link to="/profile" className="hover:text-orange-300">Profile</Link>
+            </motion.li>
+          </>
+        ) : (
+          <>
+            <motion.li whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+              <Link to="/about" className="hover:text-orange-300">About</Link>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+              <Link to="/contact" className="hover:text-orange-300">Contact</Link>
+            </motion.li>
+          </>
+        )}
+
+        <motion.li whileHover={{ scale: 1.1 }} transition={{ duration: 0.2 }}>
+          <Link to="/menu" className="hover:text-orange-300">Menu</Link>
+        </motion.li>
       </ul>
 
-      {/* Login Button */}
-      <motion.button 
-        className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600 ml-4"
-        onClick={handleLogin}
-        whileHover={{ scale: 1.1 }}
-        transition={{ duration: 0.2 }}
-      >
-        {isLoggedIn ? "Logout" : "Login"}
-      </motion.button>
+      {/* Login / Logout Button */}
+      {isLoggedIn ? (
+        <motion.button 
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 ml-4"
+          onClick={handleLogout}
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.2 }}
+        >
+          Logout
+        </motion.button>
+      ) : (
+        <motion.button 
+          className="bg-orange-500 text-black px-4 py-2 rounded hover:bg-orange-600 ml-4"
+          onClick={() => navigate("/login")}
+          whileHover={{ scale: 1.1 }}
+          transition={{ duration: 0.2 }}
+        >
+          Login
+        </motion.button>
+      )}
     </motion.nav>
   );
 };

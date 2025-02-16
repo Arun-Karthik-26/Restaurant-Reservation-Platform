@@ -40,20 +40,33 @@ export const registerUser = async (req, res) => {
 // User Login
 export const loginUser = (req, res) => {
   const { email, password } = req.body;
-
+  console.log(email, password);
   if (!email || !password) {
     return res.status(400).json({ message: "All fields are required!" });
   }
-
+  let user="";
   try {
     // Check if user exists
     const checkUserQuery = "SELECT * FROM users WHERE email = ?";
     connection.query(checkUserQuery, [email], async (err, result) => {
       if (err) return res.status(500).json({ message: "Database error", error: err });
 
-      if (result.length === 0) return res.status(400).json({ message: "User not found" });
-
-      const user = result[0];
+      if (result.length === 0) 
+      {
+        const checkUserQuery = "SELECT * FROM users WHERE username = ?";
+        connection.query(checkUserQuery, [email], async (err, resu) => {
+        if (err) return res.status(500).json({ message: "Database error", error: err });
+        if(resu.length === 0)
+        {
+        return res.status(400).json({ message: "User not found" });
+        }
+        user = resu[0];
+        });
+      }
+      else
+      {
+       user = result[0];
+      }
 
       // Check password
       const isMatch = await bcrypt.compare(password, user.password);
