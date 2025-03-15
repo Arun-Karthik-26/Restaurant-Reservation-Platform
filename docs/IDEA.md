@@ -1,5 +1,3 @@
-
-
 # Restaurant Reservation Platform - Idea  
 
 ### **Objective:**  
@@ -20,7 +18,7 @@ To create an online platform where customers can book tables, while restaurant a
 ✔️ Modify & update the restaurant menu.  
 ✔️ Send **confirmation emails** upon booking approval.  
 
-### **Workflow:**  
+### `Workflow:`
 
 1️⃣ **User logs in** and accesses the reservation page.  
 2️⃣ **Selects date, time, and number of guests.**  
